@@ -1,11 +1,12 @@
-fimport logging
+import logging
 from typing import Callable, Any, Awaitable
 
 from aiogram import BaseMiddleware
 from aiogram.types import TelegramObject
 
-from repositories import Repository
-from src.schemas import User
+from services.auth import AuthorizeUser
+# from repositories.user import Repository
+from schemas.user import User
 
 logger = logging.getLogger(__name__)
 
@@ -17,10 +18,9 @@ class AuthMiddleware(BaseMiddleware):
         event: TelegramObject,
         data: dict[str, Any],
     ) -> Any:
-        repo: Repository = data['dispatcher'].get('repo')
         chat_id = event.from_user.id
         try:
-            user: User | None = await repo.get_user_by_id(chat_id)
+            user: User | None = await AuthorizeUser().get_user(chat_id)
         except Exception as exc:
             logger.exception(exc)
             user = None
