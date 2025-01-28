@@ -1,8 +1,7 @@
-from core.containers import container
-
+from src.core.containers import container
 from src.repositories.handbook import HandBookRepository
 from src.schemas.user import User
-from src.core.settings import SpreadsheetBool, settings
+from src.core.settings import SpreadsheetBool, settings, SheetNames
 
 
 class AuthorizeUser:
@@ -12,9 +11,7 @@ class AuthorizeUser:
 
     def __init__(
         self,
-        handbook_repo: HandBookRepository = HandBookRepository(
-            spread_sheet_name=settings.GOOGLE_SPREADSHEET_NAMES.handbook
-        )
+        handbook_repo: HandBookRepository = container.get_handbook_repo()
     ):
         self.handbook_repo = handbook_repo
 

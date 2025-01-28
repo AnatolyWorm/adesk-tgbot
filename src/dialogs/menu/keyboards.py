@@ -6,7 +6,7 @@ from .schemas import MenuButton
 
 def main_menu(on_click):
     return Column(
-        Button(Const('🚀 Начать смену'), id=MenuButton.open_shift, on_click=on_click),
-        Button(Const('✍️ Внести запись'), id=MenuButton.make_entry, on_click=on_click),
-        Button(Const('🏁 Закрыть смену'), id=MenuButton.close_shift, on_click=on_click),
+        Button(Const('Доход'), id=MenuButton.open_shift, on_click=on_click),
+        Button(Const('Расход'), id=MenuButton.make_entry, on_click=on_click),
+        Button(Const('Внести правку в транзакцию'), id=MenuButton.close_shift, on_click=on_click),
     )
