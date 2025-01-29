@@ -4,7 +4,7 @@ from typing import Callable, Any, Awaitable
 from aiogram import BaseMiddleware
 from aiogram.types import TelegramObject
 
-from services.auth import AuthorizeUser
+from use_cases.auth import AuthorizeUser
 # from repositories.user import Repository
 from schemas.user import User
 

@@ -1,17 +1,26 @@
-from src.core.containers import container
+from dependency_injector.wiring import Provide, inject
+
+from src.core.containers import Container, container
+from src.repositories.base_gs_repository import BaseGSRepository
 from src.repositories.handbook import HandBookRepository
 from src.schemas.user import User
 from src.core.settings import SpreadsheetBool, settings, SheetNames
 
+
+import logging
+logger = logging.getLogger(__name__)
 
 class AuthorizeUser:
     user_id_col = 0
     user_name_col = 1
     user_active_col = 2
 
+    @inject
     def __init__(
         self,
-        handbook_repo: HandBookRepository = container.get_handbook_repo()
+        handbook_repo: HandBookRepository = container.handbook_repository()
+        # handbook_repo: HandBookRepository = Provide[Container.handbook_repository]
+        # handbook_repo: HandBookRepository = container.get(HandBookRepository)
     ):
         self.handbook_repo = handbook_repo
 
