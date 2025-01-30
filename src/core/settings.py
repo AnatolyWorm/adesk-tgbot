@@ -1,6 +1,7 @@
 from enum import StrEnum
-from pydantic import BaseModel
 from pydantic_settings import BaseSettings
+
+from src.core.sheet_configs import SheetNames
 
 
 class DatesSettings(StrEnum):
@@ -12,10 +13,6 @@ class DatesSettings(StrEnum):
 class SpreadsheetBool(StrEnum):
     yes = 'Да'
     no = 'Нет'
-
-
-class SheetNames(BaseSettings):
-    handbook: str = "Справочник"
 
 
 class LoggerSettings(BaseSettings):

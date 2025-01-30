@@ -5,8 +5,8 @@ from aiogram import Bot, Dispatcher
 from aiogram_dialog import setup_dialogs
 
 from src.core.bot import create_bot, create_dispatcher
-from src.core.fsm_storage import storage
-# from src.core.redis import redis_client
+from dependency_injector.wiring import inject
+from src.core.containers import container
 from src.core.settings import settings
 from src.dialogs import include_dialogs
 from src.handlers import user_router
@@ -22,6 +22,7 @@ def register_all_handlers(dp: Dispatcher):
     dp.include_router(user_router)
 
 
+@inject
 async def main():
     logger.info('Creating bot...')
     bot: Bot = create_bot()
@@ -29,7 +30,7 @@ async def main():
     logger.info('Creating dispatcher...')
     dp: Dispatcher = create_dispatcher(
                         bot=bot,
-                        storage=storage,
+                        storage=container.storage(),
                     )
 
     logger.info('Registering handlers...')
