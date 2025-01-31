@@ -19,10 +19,10 @@ class BaseRedisRepository:
         separator: str = ':',
     ):
         self.redis_client = redis_client
+        self.retort = retort
         self.separator = separator
         self.expire_seconds = expire_seconds
         self.lock_exp_seconds = lock_exp_seconds
-        self.retort = retort
 
     def key_builder(self, keys: list[str]) -> str | None:
         return self.separator.join([str(k) for k in keys])
