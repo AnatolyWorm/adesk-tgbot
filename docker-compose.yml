@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  bot:
+    container_name: adesk_bot
+    restart: always
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    environment:
+      TG_BOT_TOKEN: "7037171123:AAElZ9JWZw1QvPtt-Vt_ZSYEz7UyD_dQVhQ"
+      NOTIFY_CHANNEL_ID: "-1002153401331"
+      REDIS: "redis://redis:6379/1"
+
+      GOOGLE_SPREADSHEET_ID: "1qF6opv73b0qgK6Ny3jp-B_Uaq34spX6hFojicnKBhHA"
+      GOOGLE_SPREADSHEET_CREDENTIALS_JSON_PATH: "credentials.json"
+
+    networks:
+      - backend
+
+  redis:
+    container_name: adesk_redis
+    image: redis:7.2.4
+    restart: always
+    expose:
+      - "6379"
+    volumes:
+      - ../.redis-data:/data
+    networks:
+      - backend
+
+networks:
+  backend:
