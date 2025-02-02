@@ -1,8 +1,6 @@
 from enum import StrEnum
 from pydantic_settings import BaseSettings
 
-from src.core.sheet_configs import SheetNames
-
 
 class DatesSettings(StrEnum):
     date_format = "%d.%m.%Y"
@@ -29,7 +27,6 @@ class Settings(BaseSettings):
 
     GOOGLE_SPREADSHEET_ID: str
     GOOGLE_SPREADSHEET_CREDENTIALS_JSON_PATH: str
-    GOOGLE_SPREADSHEET_NAMES: SheetNames = SheetNames()
 
 
 settings = Settings()

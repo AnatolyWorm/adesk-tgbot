@@ -10,6 +10,8 @@ restart:
 	$(COMPOSE_DEV) up -d --build bot
 logs:
 	$(COMPOSE_DEV) logs -f --tail bot
+clean:
+	$(COMPOSE_DEV) exec redis redis-cli FLUSHALL
 
 freeze:
 	rm requirements.txt && pip freeze >> requirements.txt && git add requirements.txt

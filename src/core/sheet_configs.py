@@ -1,11 +1,8 @@
-from pydantic_settings import BaseSettings
-
-
-class SheetNames(BaseSettings):
-    handbook: str = "Справочник"
-
-
 class UsersConfigs:
-    START_COL: str = "A"
-    END_COL: str = "C"
-    START_ROW: str = 2
+    sheet_name = "Справочник"
+    START_COL = "A"
+    END_COL = "C"
+    START_ROW = 2
+    id_index = 0
+    name_index = 1
+    active_index = 2

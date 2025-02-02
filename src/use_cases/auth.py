@@ -1,15 +1,9 @@
-import json
 import logging
-from dependency_injector.wiring import Provide, inject
+from dependency_injector.wiring import inject
 
 from src.core.containers import container
-from src.repositories.base_gs_repository import BaseGSRepository
-from src.repositories.base_redis_repository import BaseRedisRepository
-from src.repositories.users_repository import UsersRedisRepository
-from src.repositories.handbook import HandBookGSRepository
+from src.repositories.repository import Repository
 from src.schemas.user import User
-from src.core.settings import SpreadsheetBool
-from src.core.sheet_configs import UsersConfigs
 
 logger = logging.getLogger(__name__)
 
@@ -22,16 +16,10 @@ class AuthorizeUser:
     @inject
     def __init__(
         self,
-        handbook_repo: HandBookGSRepository = container.handbook_repository(),
-        redis_repo: UsersRedisRepository = container.users_repository()
+        repository: Repository = container.repository()
     ):
-        self.handbook_repo = handbook_repo
-        self.redis_repo = redis_repo
+        self.repository = repository
 
     async def get_user(self, id: int) -> User | None:
-        user = await self.redis_repo.get_user_from_redis(id)
-        if not user:
-            users = await self.handbook_repo.get_users()
-            await self.redis_repo.put_users_in_redis(users)
-        user = await self.redis_repo.get_user_from_redis(id)
+        user = await self.repository.get_user(id)
         return user
